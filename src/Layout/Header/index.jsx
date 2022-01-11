@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.less";
-import _axios from "../../utils/axios.js";
-import { goLogin } from "../../utils";
+import _axios from "@/utils/axios";
+import { goLogin } from "@/utils";
 // import { createHashHistory } from "history";
 import { Dropdown, Menu } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserInfo } from "../../store/slice/userSlice";
+import { setUserInfo } from "@/store/slice/userSlice";
 import { useLocation, useHistory } from "react-router-dom";
 
 function Header() {
