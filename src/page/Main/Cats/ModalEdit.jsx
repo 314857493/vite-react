@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Input, InputNumber, Radio, Select } from "antd";
-import _axios from "../../../utils/axios";
+import _axios from "@/utils/axios";
 
 function ModalEdit({ show, handleShow, onSubmit, rowData }) {
   const [form] = Form.useForm();

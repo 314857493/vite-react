@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import styles from "./index.module.less";
 import { Menu } from "antd";
-import routes from "../../../Router/mainRoutes";
+import routes from "@/Router/mainRoutes";
 import { useSelector } from "react-redux";
 
 function index() {

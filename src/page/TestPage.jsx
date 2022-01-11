@@ -5,7 +5,7 @@ import {
   decrement,
   increment,
   incrementByAmount,
-} from "../store/slice/counterSlice";
+} from "@/store/slice/counterSlice";
 import { Button, Input } from "antd";
 import { useDebounceFn } from "ahooks";
 
