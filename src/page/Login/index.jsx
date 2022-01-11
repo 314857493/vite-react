@@ -5,18 +5,22 @@ import _axios from "../../utils/axios";
 import styles from "./index.module.less";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../../store/slice/userSlice";
+import { withRouter } from "react-router";
 
-function index() {
+const index = withRouter((props) => {
   const [userNmae, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const history = createHashHistory();
   const dispatch = useDispatch();
   const login = () => {
-    _axios
-      .post("/cms/system/login", {
-        password: password,
-        userName: userNmae,
-      })
+    new Promise((resolve, reject) => {
+      resolve({ code: 1, data: { userNmae: "jxd", userRole: 0, id: 1 } });
+    })
+      // _axios
+      //   .post("/cms/system/login", {
+      //     password: password,
+      //     userName: userNmae,
+      //   })
       .then((res) => {
         if (res.code === 1) {
           dispatch(setUserInfo(res.data));
@@ -58,6 +62,6 @@ function index() {
       </div>
     </div>
   );
-}
+});
 
 export default index;
