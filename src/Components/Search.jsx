@@ -1,13 +1,13 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Button } from "antd";
 
-function Search({
+const Search = ({
   onSearch,
   onClear,
   children,
   createBtnTitle,
   createBtnFunc,
-}) {
+}) => {
   const [searchForm] = Form.useForm();
   const clear = () => {
     onClear();
@@ -42,15 +42,18 @@ function Search({
       </Form>
     </div>
   );
-}
+};
 
-Search.Item = function ({ name, label, children, br }) {
+Search.Item = ({ name, label, children, br }) => {
   return (
-    <div style={{ width: 400, marginRight: 10 }}>
-      <Form.Item label={label} name={name}>
-        {children}
-      </Form.Item>
-    </div>
+    <>
+      {br && <br />}
+      <div style={{ width: 400, marginRight: 10 }}>
+        <Form.Item label={label} name={name}>
+          {children}
+        </Form.Item>
+      </div>
+    </>
   );
 };
 

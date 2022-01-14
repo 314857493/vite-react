@@ -1,10 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import eslintPlugin from "vite-plugin-eslint";
 import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    eslintPlugin({
+      include: ["./src/**/*.js", ".src/**/*.jsx"],
+      exclude: ["plugin:react/jsx-runtime"],
+    }),
+  ],
   server: {
     host: "t.jdcloud.com",
     port: 4000,
@@ -12,8 +19,7 @@ export default defineConfig({
       "/api": {
         target: "http://localhost:9000",
         changeOrigin: true,
-        // rewrite: { "^/api": "" },
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        // rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
