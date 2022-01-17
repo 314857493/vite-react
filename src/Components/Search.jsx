@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Form, Button } from "antd";
 
 const Search = ({
@@ -7,11 +7,17 @@ const Search = ({
   children,
   createBtnTitle,
   createBtnFunc,
+  form,
 }) => {
   const [searchForm] = Form.useForm();
   const clear = () => {
-    onClear();
     searchForm.resetFields();
+    form.clearForm();
+    onClear();
+  };
+  const submit = () => {
+    form.setForm(searchForm.getFieldsValue());
+    onSearch();
   };
   return (
     <div style={{ padding: 12, clear: "both" }}>
@@ -27,7 +33,7 @@ const Search = ({
           {children}
         </div>
         <div style={{ float: "left" }}>
-          <Button type="primary" onClick={onSearch}>
+          <Button type="primary" onClick={submit}>
             查询
           </Button>
           <Button style={{ marginLeft: 10 }} onClick={clear}>
@@ -55,6 +61,19 @@ Search.Item = ({ name, label, children, br }) => {
       </div>
     </>
   );
+};
+
+Search.useSearchForm = () => {
+  const formValue = useRef({});
+  const getValue = () => formValue.current;
+  const setForm = (value) => (formValue.current = value);
+  const clearForm = () => (formValue.current = {});
+  const searchForm = {
+    getValue,
+    setForm,
+    clearForm,
+  };
+  return searchForm;
 };
 
 export default Search;
