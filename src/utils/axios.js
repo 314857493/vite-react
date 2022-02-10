@@ -14,12 +14,7 @@ _axios.interceptors.response.use(
   (response) => {
     const { code } = response.data;
     if (code && code !== 1) {
-      message.warning(
-        response.data.message ||
-          response.data.msg ||
-          response.message ||
-          response.msg
-      );
+      message.warning(response.data.message || response.data.msg);
     }
     return response.data;
   },
@@ -53,5 +48,4 @@ _axios.upload = (url, data) => {
     },
   });
 };
-
 export default _axios;
