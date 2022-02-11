@@ -5,7 +5,7 @@ import { message } from "antd";
 const history = createHashHistory();
 const config = {
   baseURL: "/api",
-  timeout: 50 * 1000, // Timeout
+  timeout: 3 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };
 const _axios = axios.create(config);
@@ -19,17 +19,18 @@ _axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    const { status, config } = error.response;
-    if (config.url !== "/cms/system/login") {
-      if (status === 401) {
-        // goLogin();
-        history.push("/login");
-      } else {
-        message.error(JSON.stringify(error.response.data || error.message));
+    if (error.response) {
+      const { status, config, data } = error.response;
+      if (config.url !== "/cms/system/login") {
+        if (status === 401) {
+          // goLogin();
+          history.push("/login");
+        } else {
+          message.error(data.data || data.message);
+        }
       }
-    }
-    if (status === 400) {
-      message.error(error.response.data);
+    } else {
+      message.error(error.toString());
     }
     return Promise.reject(error);
   }
