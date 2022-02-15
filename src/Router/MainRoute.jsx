@@ -1,35 +1,35 @@
-import React from "react";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import routes from "./mainRoutes";
-import Layout from "@/Layout";
 import Sider from "@/page/Main/Sider";
 
-const MainRoute = () => {
-  const match = useRouteMatch();
-  const filteRoute = (route) => {
-    const { Component } = route;
-    if (route.children) {
-      return route.children.map(filteRoute);
+const generateRouter = (routers) => {
+  return routers.map((item) => {
+    if (item.children) {
+      return generateRouter(item.children);
     }
+    const Component = item.component;
     return (
       <Route
-        key={route.path}
-        path={`${match.path}/${route.path}`}
-        exact
-        render={(props) => {
-          document.title = route.title;
-          return <Component {...props} />;
-        }}
+        path={item.path}
+        key={item.name}
+        element={
+          <Suspense fallback={<div>加载中...</div>}>
+            <Component />
+          </Suspense>
+        }
       />
     );
-  };
+  });
+};
+const MainRoute = () => {
   return (
-    <Layout>
+    <>
       <Sider />
       <div style={{ flex: 1 }}>
-        <Switch>{routes.map(filteRoute)}</Switch>
+        <Routes>{generateRouter(routes)}</Routes>
       </div>
-    </Layout>
+    </>
   );
 };
 
