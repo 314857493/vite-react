@@ -1,11 +1,10 @@
 import axios from "axios";
-import { createHashHistory } from "history";
 import { message } from "antd";
+import { goLogin } from "./index";
 
-const history = createHashHistory();
 const config = {
   baseURL: "/api",
-  timeout: 3 * 1000, // Timeout
+  timeout: 10 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };
 const _axios = axios.create(config);
@@ -23,8 +22,8 @@ _axios.interceptors.response.use(
       const { status, config, data } = error.response;
       if (config.url !== "/cms/system/login") {
         if (status === 401) {
-          // goLogin();
-          history.push("/login");
+          goLogin();
+          // history.push("/login");
         } else {
           message.error(data.data || data.message);
         }

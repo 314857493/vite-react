@@ -4,7 +4,7 @@ import Login from "@/page/Login";
 import Home from "@/page/Home";
 import NoMatch from "@/page/NoMatch";
 import Layout from "@/Layout";
-const MainRoute = lazy(() => import("./MainRoute"));
+const MainRoute = lazy(() => import("./main/MainRoute"));
 
 const RouteBox = () => {
   return (
@@ -21,7 +21,7 @@ const RouteBox = () => {
               </Suspense>
             </Layout>
           }
-         />
+        />
       </Route>
       <Route path="*" element={<NoMatch />} />
     </Routes>

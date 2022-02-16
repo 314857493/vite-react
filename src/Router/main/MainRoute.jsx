@@ -1,23 +1,21 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import routes from "./mainRoutes";
 import Sider from "@/page/Main/Sider";
+import RouterWrapper from "../RouteWrapper";
 
 const generateRouter = (routers) => {
   return routers.map((item) => {
     if (item.children) {
       return generateRouter(item.children);
     }
-    const Component = item.component;
+    const { element: Element } = item;
+
     return (
       <Route
         path={item.path}
         key={item.name}
-        element={
-          <Suspense fallback={<div>加载中...</div>}>
-            <Component />
-          </Suspense>
-        }
+        element={<RouterWrapper element={<Element />} title={item.title} />}
       />
     );
   });
