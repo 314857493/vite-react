@@ -43,6 +43,7 @@ const Sider = () => {
       );
     };
     return routes.map((menu) => {
+      if (menu.exclude) return null;
       if (menu.requireAuth) {
         if (auth.includes(menu.name)) {
           return menuRender(menu);

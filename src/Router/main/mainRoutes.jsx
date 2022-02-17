@@ -1,10 +1,11 @@
 import React from "react";
 import { lazy } from "react";
+import NoMatch from "../../page/NoMatch";
 
 const routes = [
   {
     path: "overview",
-    element: lazy(() => import("@/page/index")),
+    element: lazy(() => import("@/page/Main/Overview")),
     title: "概览",
     name: "overview",
     requireAuth: false,
@@ -36,6 +37,13 @@ const routes = [
         requireAuth: true,
       },
     ],
+  },
+  {
+    path: "*",
+    title: "404",
+    name: "404",
+    element: NoMatch,
+    exclude: true,
   },
 ];
 
